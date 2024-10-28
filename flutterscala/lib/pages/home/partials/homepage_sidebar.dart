@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 class HomePageSidebar extends StatelessWidget {
   final void Function() addNewNote;
+  final void Function() play;
+  final void Function() hostAvversario;
 
-  const HomePageSidebar({required this.addNewNote});
+  const HomePageSidebar(
+      {required this.addNewNote,
+      required this.play,
+      required this.hostAvversario});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +25,24 @@ class HomePageSidebar extends StatelessWidget {
                   radius: 20,
                   backgroundImage: NetworkImage(
                       "https://lh3.googleusercontent.com/a/ACg8ocL8wHavwlVIriwF8Ul4oUovbR8xyTmFUvAxq4ti5PyJuQ=s360-c-no"),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: IconButton(
+                    onPressed: play,
+                    icon: Icon(
+                      Icons.play_arrow,
+                      size: 30,
+                    )),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter a search term',
+                  ),
                 ),
               ),
               Padding(
