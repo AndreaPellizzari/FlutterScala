@@ -37,10 +37,10 @@ class _HomePageState extends State<HomePage> {
 
   void play() {
     setState(() {
-      notes.add("" +
-          controller1.text +
-          "c"); //  Attuare la lettura da TextField, così non funziona
+      notes.add("" + controller1.text);
     });
+
+    //  Aprire connessione Socket
   }
 
   void hostAvversario() {
