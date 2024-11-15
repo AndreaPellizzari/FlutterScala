@@ -1,5 +1,3 @@
-import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutterscala/pages/home/partials/homepage_body.dart';
 import 'package:flutterscala/pages/home/partials/homepage_sidebar.dart';
@@ -14,6 +12,7 @@ class _HomePageState extends State<HomePage> {
   List<String> notes = [];
   List<String> notes2 = [];
   String nameHostAvversario = "";
+  TextEditingController controller1 = new TextEditingController();
 
   void addNewNote() {
     setState(() {
@@ -39,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   void play() {
     setState(() {
       notes.add("" +
-          hostAvversario.toString() +
+          controller1.text +
           "c"); //  Attuare la lettura da TextField, così non funziona
     });
   }
@@ -63,7 +62,8 @@ class _HomePageState extends State<HomePage> {
           HomePageSidebar(
               addNewNote: addNewNote,
               play: play,
-              hostAvversario: hostAvversario),
+              hostAvversario: hostAvversario,
+              controller: controller1),
           HomePageBody(
             notes: notes,
             notes2: notes2,

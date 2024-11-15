@@ -4,23 +4,24 @@ class HomePageSidebar extends StatelessWidget {
   final void Function() addNewNote;
   final void Function() play;
   final void Function() hostAvversario;
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController controller;
 
   HomePageSidebar(
       {required this.addNewNote,
       required this.play,
-      required this.hostAvversario});
+      required this.hostAvversario,
+      required this.controller});
 
   String _printTextFieldValue() {
     // Step 3: Access the text property of the controller
-    String textFieldValue = _controller.text;
+    String textFieldValue = controller.text;
     return textFieldValue;
   }
 
   @override
   void dispose() {
     // Step 4: Dispose the controller when no longer needed to free up resources
-    _controller.dispose();
+    controller.dispose();
   }
 
   @override
@@ -52,7 +53,7 @@ class HomePageSidebar extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextField(
-                  controller: _controller,
+                  controller: controller,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Enter',
