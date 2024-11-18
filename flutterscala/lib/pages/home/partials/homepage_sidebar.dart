@@ -4,13 +4,15 @@ class HomePageSidebar extends StatelessWidget {
   final void Function() addNewNote;
   final void Function() play;
   final void Function() hostAvversario;
+  final void Function() listen;
   final TextEditingController controller;
 
   HomePageSidebar(
       {required this.addNewNote,
       required this.play,
       required this.hostAvversario,
-      required this.controller});
+      required this.controller,
+      required this.listen});
 
   String _printTextFieldValue() {
     // Step 3: Access the text property of the controller
@@ -47,6 +49,15 @@ class HomePageSidebar extends StatelessWidget {
                     onPressed: play,
                     icon: Icon(
                       Icons.play_arrow,
+                      size: 30,
+                    )),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: IconButton(
+                    onPressed: listen,
+                    icon: Icon(
+                      Icons.connect_without_contact,
                       size: 30,
                     )),
               ),

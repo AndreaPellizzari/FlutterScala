@@ -22,7 +22,8 @@ class _HomePageState extends State<HomePage> {
   String _message = "no message yet";
 
   void initConnection(String endpoint) {
-    channel = IOWebSocketChannel.connect("" + endpoint);
+    channel =
+        IOWebSocketChannel.connect("" + endpoint); //  ws://echo.websocket.org
     channel.stream.listen((data) {
       setState(() {
         _message = data; // Update UI when a new message is received
@@ -93,6 +94,55 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void startWebSocketServer() async {
+    final server = await HttpServer.bind(InternetAddress.anyIPv4, 8080);
+    print(
+        'WebSocket server is running on ws://${server.address.host}:${server.port}');
+
+    notes.add("" +
+        'WebSocket server is running on ws://${server.address.host}:${server.port}');
+
+    // Listen for incoming WebSocket connections
+    await for (HttpRequest request in server) {
+      if (WebSocketTransformer.isUpgradeRequest(request)) {
+        WebSocket socket = await WebSocketTransformer.upgrade(request);
+        handleWebSocket(socket);
+      } else {
+        // Respond to non-WebSocket requests
+        request.response
+          ..statusCode = HttpStatus.forbidden
+          ..write('WebSocket connections only!')
+          ..close();
+      }
+    }
+  }
+
+  void listen() {
+    setState(() {
+      // WebSocket server function
+      startWebSocketServer();
+    });
+  }
+
+  // Handle each WebSocket connection
+  void handleWebSocket(WebSocket socket) {
+    print('New WebSocket connection established.');
+
+    // Listen for incoming messages
+    socket.listen(
+      (data) {
+        print('Received: $data');
+        socket.add('Echo: $data'); // Echo the received message back
+      },
+      onDone: () {
+        print('WebSocket connection closed.');
+      },
+      onError: (error) {
+        print('WebSocket error: $error');
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,10 +150,12 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           HomePageSidebar(
-              addNewNote: addNewNote,
-              play: play,
-              hostAvversario: hostAvversario,
-              controller: controller1),
+            addNewNote: addNewNote,
+            play: play,
+            hostAvversario: hostAvversario,
+            controller: controller1,
+            listen: listen,
+          ),
           HomePageBody(
             notes: notes,
             notes2: notes2,
