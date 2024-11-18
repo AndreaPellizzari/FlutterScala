@@ -117,13 +117,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void listen() {
-    setState(() {
-      // WebSocket server function
-      startWebSocketServer();
-    });
-  }
-
   // Handle each WebSocket connection
   void handleWebSocket(WebSocket socket) {
     print('New WebSocket connection established.');
@@ -141,6 +134,13 @@ class _HomePageState extends State<HomePage> {
         print('WebSocket error: $error');
       },
     );
+  }
+
+  void listen() {
+    setState(() {
+      // WebSocket server function
+      startWebSocketServer();
+    });
   }
 
   @override
