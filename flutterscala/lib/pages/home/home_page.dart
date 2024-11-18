@@ -22,8 +22,8 @@ class _HomePageState extends State<HomePage> {
   String _message = "no message yet";
 
   void initConnection(String endpoint) {
-    channel =
-        IOWebSocketChannel.connect("" + endpoint); //  ws://echo.websocket.org
+    channel = IOWebSocketChannel.connect("" +
+        endpoint); //  ws://echo.websocket.org  -- or -- ws://localhost:8080
     channel.stream.listen((data) {
       setState(() {
         _message = data; // Update UI when a new message is received
@@ -96,8 +96,7 @@ class _HomePageState extends State<HomePage> {
 
   void startWebSocketServer() async {
     final server = await HttpServer.bind(InternetAddress.anyIPv4, 8080);
-    print(
-        'WebSocket server is running on ws://${server.address.host}:${server.port}');
+    //  print('WebSocket server is running on ws://${server.address.host}:${server.port}');
 
     notes.add("" +
         'WebSocket server is running on ws://${server.address.host}:${server.port}');
@@ -123,9 +122,9 @@ class _HomePageState extends State<HomePage> {
 
     // Listen for incoming messages
     socket.listen(
-      (data) {
-        print('Received: $data');
-        socket.add('Echo: $data'); // Echo the received message back
+      (data_received) {
+        //  print('Received: $data');
+        socket.add('Echo: $data_received'); // Echo the received message back
       },
       onDone: () {
         print('WebSocket connection closed.');
