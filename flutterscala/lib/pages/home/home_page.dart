@@ -22,8 +22,7 @@ class _HomePageState extends State<HomePage> {
   String _message = "no message yet";
 
   void initConnection(String endpoint) {
-    channel = IOWebSocketChannel.connect(
-        'ws://echo.websocket.org'); // ("" + endpoint);
+    channel = IOWebSocketChannel.connect("" + endpoint);
     channel.stream.listen((data) {
       setState(() {
         _message = data; // Update UI when a new message is received
@@ -79,7 +78,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       notes.add("" + controller1.text);
       initConnection("" + controller1.text);
-      sendMessage(_message);
+      sendMessage("ciaociao");
       notes.add("" + _message);
     });
   }
