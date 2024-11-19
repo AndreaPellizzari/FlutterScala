@@ -20,6 +20,8 @@ class _HomePageState extends State<HomePage> {
   TextEditingController controller1 = new TextEditingController();
   late WebSocketChannel channel;
   String _message = "no message yet";
+  String stato =
+      ""; // Definisce lo stato della partita, attesa, giocatore1, giocatore2
 
   void initConnection(String endpoint) {
     channel = IOWebSocketChannel.connect("" +
@@ -140,6 +142,14 @@ class _HomePageState extends State<HomePage> {
       // WebSocket server function
       startWebSocketServer();
     });
+  }
+
+  void gestione_partita_server() {
+    //  Definire gestione partita dalla parte server, aggiungere il parametro del socket, e sfruttare la variabile stato
+  }
+
+  void gestione_partita_client() {
+    //  Definire gestione partita dalla parte client, aggiungere il parametro del channel, e sfruttare la variabile stato
   }
 
   @override
